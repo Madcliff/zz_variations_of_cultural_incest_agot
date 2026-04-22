@@ -1,4 +1,4 @@
-﻿could_marry_character_trigger = {
+could_marry_character_trigger = {
 	save_temporary_scope_as = can_marry_check
 	can_marry_common_trigger = yes
 	$CHARACTER$ = { can_marry_common_trigger = yes }
@@ -30,41 +30,29 @@
 	#Faith hostility & consanguinity
 	trigger_if = {
 		limit = { NOT = { is_courtier_of = $CHARACTER$ } } #If you're someone's courtier, your liege can marry you anyway
-		OR = {
-			faith = {
-				faith_allows_marriage_consanguinity_trigger = {
-					CHARACTER_1 = scope:can_marry_check
-					CHARACTER_2 = $CHARACTER$
-				}
-				#faith_hostility_level = {
-				#	target = $CHARACTER$.faith
-				#	value < faith_hostility_prevents_marriage_level
-				#}
+		faith = {
+			faith_allows_marriage_consanguinity_trigger = {
+				CHARACTER_1 = scope:can_marry_check
+				CHARACTER_2 = $CHARACTER$
 			}
-			culture = {
-				has_cultural_parameter = consanguinity_unrestricted_marriage				
-			}
+			#faith_hostility_level = {
+			#	target = $CHARACTER$.faith
+			#	value < faith_hostility_prevents_marriage_level
+			#}
 		}
-		
 	}
 	trigger_if = {
 		limit = { $CHARACTER$ = { NOT = { is_courtier_of = scope:can_marry_check } } } #If you're someone's courtier, your liege can marry you anyway
-		OR = {
-			$CHARACTER$.faith = {
-				faith_allows_marriage_consanguinity_trigger = {
-					CHARACTER_1 = scope:can_marry_check
-					CHARACTER_2 = $CHARACTER$
-				}
-				#faith_hostility_level = {
-				#	target = scope:can_marry_check.faith
-				#	value < faith_hostility_prevents_marriage_level
-				#}
+		$CHARACTER$.faith = {
+			faith_allows_marriage_consanguinity_trigger = {
+				CHARACTER_1 = scope:can_marry_check
+				CHARACTER_2 = $CHARACTER$
 			}
-			$CHARACTER$.culture = {
-				has_cultural_parameter = consanguinity_unrestricted_marriage
-			}
+			#faith_hostility_level = {
+			#	target = scope:can_marry_check.faith
+			#	value < faith_hostility_prevents_marriage_level
+			#}
 		}
-		
 	}
 	# Cannot marry self
 	NOT = {
@@ -139,23 +127,7 @@ can_take_as_concubine_character_trigger = {
 		scope:can_marry_check = { is_spouse_of = $CHARACTER$ }
 	}
 }
-agot_exceptionalism_incest_allowed = {
-	OR = {
-		dynasty ?= { has_variable = agot_doctrine_of_exceptionalism_incest_exemption }
-		house ?= { has_variable = agot_doctrine_of_exceptionalism_incest_exemption }
-		
-	}
-	OR = {
-		culture = { has_cultural_parameter = tradition_zz_valyrian_sibling_incest }
-		faith = { has_doctrine = agot_exceptionalism_doctrine }
-	}
-	NOT = {
-		house = { has_house_modifier = disavowed_incest_house_modifier }
-	}
-}
-
 relation_with_character_is_incestuous_in_faith_trigger = {
-	NOT = { culture = { has_cultural_parameter = consanguinity_unrestricted_marriage } }
 	OR = {
 		# doctrine_consanguinity_dynastic; not within the same descent group
 		AND = {
@@ -251,14 +223,11 @@ relation_with_character_is_incestuous_in_faith_trigger = {
 		always = no
 	}
 }
-
 secret_incest_is_valid_trigger = {
 	$OWNER$ = {
 		is_adult = yes
 		NOT = {
 			has_trait = incestuous
-			culture = { has_cultural_parameter = consanguinity_unrestricted_marriage }
-			culture = { has_cultural_parameter = consanguinity_siblings_marriage }
 		}
 		#AGOT Added
 		is_human = yes
@@ -269,15 +238,8 @@ secret_incest_is_shunned_trigger = {
 		OR = {
 			faith = { NOT = { has_doctrine_parameter = allows_unrestricted_marriage } }
 			any_liege_or_above = { faith = { NOT = { has_doctrine_parameter = allows_unrestricted_marriage } } }
-			NOT = {
-				culture = { has_cultural_parameter = consanguinity_siblings_marriage }
-			}
-			NOT = {
-				culture = { has_cultural_parameter = consanguinity_unrestricted_marriage }
-			}
 		}
 		#AGOT Added
 		is_human = yes
 	}
 }
-
