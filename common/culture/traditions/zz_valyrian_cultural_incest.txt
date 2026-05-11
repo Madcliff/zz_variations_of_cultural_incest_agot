@@ -77,6 +77,7 @@ tradition_zz_valyrian_sibling_incest = {
 	}
 
 	parameters = {
+		tradition_zz_valyrian_sibling_incest = yes
 		consanguinity_siblings_marriage = yes
 		consanguinity_unrestricted_incest = yes
 		allows_cousin_marriage = yes
